@@ -41,7 +41,7 @@ class CapturaTela(tk.Toplevel):
         y2 = int(max(self.start_y, event.y))
 
         screenshot = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-        screenshot.save("captura_de_tela.png")
+        screenshot.save("temp/captura_de_tela.png")
         print("Captura de tela salva como 'captura_de_tela.png'")
 
         coordenadas = {
@@ -49,7 +49,7 @@ class CapturaTela(tk.Toplevel):
             "fim": {"x": x2, "y": y2}
         }
         
-        with open("coordenadas_captura.json", "w") as arquivo_json:
+        with open("temp/coordenadas_captura.json", "w") as arquivo_json:
             json.dump(coordenadas, arquivo_json, indent=4)
         
         print("Coordenadas da captura salvas em 'coordenadas_captura.json'")
@@ -58,7 +58,7 @@ class CapturaTela(tk.Toplevel):
 
 def obter_coordenadas_captura():
     try:
-        with open("coordenadas_captura.json", "r") as arquivo_json:
+        with open("temp/coordenadas_captura.json", "r") as arquivo_json:
             coordenadas = json.load(arquivo_json)
         
         x_inicial = coordenadas["inicio"]["x"]

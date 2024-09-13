@@ -24,7 +24,7 @@ def capturar_salvar_e_extrair_texto(x1, y1, x2, y2, master, intervalo=0.5):
             inicio = time.time()
             
             frame = capturar_area_retangular(sct, area)
-            nome_arquivo = f"captura.png"
+            nome_arquivo = f"temp/captura.png"
             cv2.imwrite(nome_arquivo, frame)
             
             print(f"Imagem {nome_arquivo} salva.")

@@ -35,7 +35,7 @@ class AplicacaoPrincipal(tk.Tk):
         self.btn_iniciar = tk.Button(self, text="Iniciar Extração de Texto", command=self.iniciar_extracao)
         self.btn_iniciar.pack(pady=5)
 
-        self.btn_parar = tk.Button(self, text="Parar Extração de Texto", command=self.parar_extracao)
+        self.btn_parar = tk.Button(self, text="Parar Extração de Texto", command=self.parar_extracao,state='disabled')
         self.btn_parar.pack(pady=5)
 
         self.label_info_extraction = tk.Label(self,text="Info: ")
@@ -53,10 +53,12 @@ class AplicacaoPrincipal(tk.Tk):
             x1, y1, x2, y2 = coordenadas
             self.withdraw()  # Esconde a janela principal
             try:
+                self.btn_iniciar.config(state='disabled')
                 self.flagThreadExtracao = True
                 thread = threading.Thread(target=lambda:capturar_salvar_e_extrair_texto(x1, y1, x2, y2,self))
                 thread.daemon = True
                 thread.start()
+                self.btn_parar.config(state='normal')
             except KeyboardInterrupt:
                 print("Processo interrompido pelo usuário.")
             finally:
@@ -66,3 +68,5 @@ class AplicacaoPrincipal(tk.Tk):
 
     def parar_extracao(self):
         self.flagThreadExtracao = False
+        self.btn_iniciar.config(state=tk.NORMAL)
+        self.btn_parar.config(state=tk.DISABLED)
